@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Plantilla base manual</title>
+    <style>
+        :root {
+            --primary-color:#0b6b23;
+            --accent-color: #f27c1e;
+            --light-green-color: #7cc21c;
+            --magenta-color: #d93b88;
+            --azul-color: #189ad3;
+                
+            --text-color: #1f2937;
+            --secondary-color: #6b7280;
+            --border-color: #e5e7eb;
+            --background-color: #f8fafc;
+
+            --logo: url('logo_rio.jpg');
+            --font: 'Poppins', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #d1d5db;
+            font-family: var(--font);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        @page {
+            size: letter;
+            margin: 0;
+        }
+
+        .sheet {
+            width: 215.9mm;
+            height: 279.4mm;
+            background: #ffffff;
+            margin: 20px auto;
+            padding: 18mm 22mm 20mm 22mm;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            page-break-after: always;
+            break-after: page;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sheet::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: var(--logo);
+            background-repeat: no-repeat;
+            background-position: center 58%;
+            background-size: 135mm auto;
+            opacity: 0.055; /* Muy sutil para no competir con el contenido */
+            filter: grayscale(20%);
+            /* Degradado suave que desvanece los bordes de la marca de agua */
+            -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 38%, rgba(0, 0, 0, 0.25) 72%, rgba(0, 0, 0, 0) 95%);
+            mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 38%, rgba(0, 0, 0, 0.25) 72%, rgba(0, 0, 0, 0) 95%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .sheet-heading, .main-content, .sheet-footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        .sheet-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 24px;
+            font-size: 12px;
+            color: var(--secondary-color);
+            letter-spacing: 0.5px;
+        }
+
+        .heading-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--primary-color)
+        }
+
+        .heading-logo {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid var(--primary-color)
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .badge-step {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            width: fit-content;
+        }
+
+        .title-section {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 14px;
+            line-height: 1.25;
+        }
+
+        .description {
+            margin-bottom: 10px;
+        }
+
+        .description p {
+            margin-bottom: 10px;
+        }
+
+        .image-container {
+            flex-grow: 1;
+            max-height: 142mm;
+            background-color: rgba(248, 250, 249, 0.9);
+            border: 1px solid var(--color-borde);
+            border-radius: 8px;
+            padding: 12px;    
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            height: 100%;             
+            width: auto;                
+            max-width: 100%;            
+            object-fit: contain;        
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .image-footer {
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--secondary-color);
+            font-style: italic; 
+            text-align: center;
+        }
+
+        .sheet-footer {
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--secondary-color);
+        }
+
+        /* Portada */
+
+        .sheet.cover {
+            background: linear-gradient(160deg, #fff 55%, #f2f8f4 100%);
+            justify-content: space-between;
+            padding: 22mm 24mm;
+        }
+
+        .cover-topbar {
+            display: flex;
+            height: 6px;
+            width: 100%;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 18px;
+        }
+
+        .cover-topbar span:nth-child(1) { flex: 3; background-color: var(--primary-color); }
+        .cover-topbar span:nth-child(2) { flex: 1; background-color: var(--light-green-color); }
+        .cover-topbar span:nth-child(3) { flex: 1; background-color: var(--accent-color); }
+        .cover-topbar span:nth-child(4) { flex: 1; background-color: var(--magenta-color); }
+        .cover-topbar span:nth-child(5) { flex: 1; background-color: var(--azul-color); }
+
+    .body-cover {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 22px;
+    }
+
+    .cover-logo-box {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .cover-logo {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary-color);
+      box-shadow: 0 6px 16px rgba(11, 107, 35, 0.15);
+    }
+
+    .cover-label-text {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--color-primario);
+    }
+
+    .cover-sublabel {
+      font-size: 13px;
+      color: var(--secondary-color);
+    }
+
+    .cover-badge {
+      display: inline-block;
+      width: fit-content;
+      background-color: rgba(242, 124, 30, 0.12);
+      color: var(--accent-color);
+      border-left: 4px solid var(--accent-color);
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .cover-title {
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--primary-color);
+      line-height: 1.15;
+      max-width: 95%;
+      text-align: center;
+      margin-bottom: 40px;
+
+    }
+
+    .cover-subtitle {
+      font-size: 16px;
+      color: var(--secondary-color);
+      line-height: 1.55;
+      max-width: 88%;
+      text-align: center;
+    }
+
+    /* Tarjeta de metadatos (área, versión, fecha, responsable) */
+    .cover-card {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      background-color: #ffffff;
+      border: 2px solid var(--primary-color);
+      /* border-left: 4px solid var(--primary-color); */
+      border-radius: 8px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .card-item-label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--secondary-color);
+      margin-bottom: 3px;
+      text-align: center;
+    }
+
+    .card-item-value {
+        display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-color);
+      text-align: center;
+    }
+
+    .cover-footer {
+      border-top: 1px solid var(--border-color);
+      padding-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--secondary-color);
+    }
+
+
+        @media print {
+            body {
+                background: none;
+            }
+
+            .sheet {
+                margin: 0;
+                box-shadow: none;
+                width: 100%;
+                height: 100vh;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- Portada -->
+     <section class="sheet cover">
+    <div>
+      <!-- Barra superior con los tonos de la marca -->
+      <div class="cover-topbar" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="cover-logo-box">
+        <img src="logo_rio.jpg" alt="Logo Rio" class="cover-logo">
+        <div>
+          <div class="cover-label-text">Rio supermarket</div>
+          <div class="cover-sublabel">Manual Técnico</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-body">
+      <!-- <span class="cover-badge">Guía Paso a Paso</span> -->
+      <h1 class="cover-title">Manual Técnico para dispositivo Biométrico Hikvision DS-k1T804AEF</h1>
+      <!-- <p class="cover-subtitle">
+        Procedimientos estándar, uso de equipos y buenas prácticas para ejecutar el proceso de forma segura y uniforme.
+      </p> -->
+
+      <div class="cover-card">
+        <div>
+          <span class="card-item-label">Área / Departamento:</span>
+          <span class="card-item-value">Soporte Técnico</span>
+        </div>
+        <!-- <div>
+          <span class="card-item-label">Código de Documento</span>
+          <span class="card-item-value">MAN-RIO-001</span>
+        </div> -->
+        <div>
+          <span class="card-item-label">Versión y Fecha:</span>
+          <span class="card-item-value">v1.0 · 19/11/2026</span>
+        </div>
+        <div>
+          <span class="card-item-label">Elaborado por:</span>
+          <span class="card-item-value">Oswaldo Rodríguez / Analista de soporte técnico</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="cover-footer">
+      <span>Documento de Uso Interno</span>
+      <span>Todos los derechos reservados</span>
+    </footer>
+  </section>
+
+  <!-- Página 1: Obtener información de los parámetros de red -->
+   <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <h1 class="title-section">Obtener información de los parámetros de red:</h1>
+        <span class="badge-step">PASO 01</span>
+
+      <div class="description">
+        <p>Una vez ingresemos la clave para acceder al dispositivo, vamos a navegar con las flechas hasta el apartado de Comm y accedemos con el boton físico ok.</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="comm1.jpeg" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.1: Opciones del dispositivo - Comm</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 1</span>
+    </footer>
+  </section>
+
+  <!-- =========================================================
+       HOJA 2 (Ejemplo duplicado)
+       ========================================================= -->
+  <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <span class="badge-step">PASO 02</span>
+
+      <div class="description">
+       <p>Una vez dentro del apartado Comm, vamos a ver distintas opciones. Seleccionamos la que dice Red</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="red1.jpeg" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.2: Opciones del dispositivo - Comm - Red</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 2</span>
+    </footer>
+  </section>
+
+   <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        
+        <span class="badge-step">PASO 03</span>
+
+      <div class="description">
+         <p>En esta pantalla vamos a ver los parámetros de red del equipo.</p>
+        <p>Para cambiar algunos de estos valores si es requerido, solo hay que navegar con las flechas de navegación e ir presionando el botón físico de ok según se requiera, y modificar los números a discreción.</p>
+        <p>Por lo general, el protocolo de asignación de IP es estático, si es requerido que sea por DHCP solo hay que darle ok al switch donde dice DHCP y activarlo.</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="red2.jpeg" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.1: Opciones del dispositivo - Red</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 3</span>
+    </footer>
+  </section>
+
+  <!-- Página 4: Cambiar formato fecha y hora -->
+
+  <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <h1 class="title-section">Cambiar formato de Fecha y hora:</h1>
+        <span class="badge-step">PASO 01</span>
+
+      <div class="description">
+        <p>Navegamos con las flechas hasta el apartado de Sistema.</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="sis1.jpeg" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.1: Opciones del dispositivo - Sistema</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 4</span>
+    </footer>
+  </section>
+
+  <!-- Pagina 5: Continuación -->
+
+   <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <!-- <h1 class="title-section">Cambiar formato de Fecha</h1> -->
+        <span class="badge-step">PASO 02</span>
+
+      <div class="description">
+        <p>Una vez dentro de la opción Sistema veremos otra opción que dice Sistema.</p>
+        <p>La seleccionamos con el botón físico de ok.</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="sis2.jpeg" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.2: Opciones del dispositivo - Sistema - Sistema</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 5</span>
+    </footer>
+  </section>
+
+  <!-- Continuación -->
+
+   <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <!-- <h1 class="title-section">Cambiar formato de Fecha</h1> -->
+        <span class="badge-step">PASO 03</span>
+
+      <div class="description">
+        <p>Una vez dentro veremos distintos apartados, para cambiar el formato de hora nos vamos donde dice Formato de hora y para alternar entre las distintas opciones disponibles solo tenemos que darle al botón ok.</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="sis3-formatos.jpeg" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.3: Opciones del dispositivo - Sistema - Sistema - Opciones</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 6</span>
+    </footer>
+  </section>
+
+  <!-- Página 7:  -->
+   <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <h1 class="title-section">Cambiar fecha y hora de forma manual:</h1>
+        <span class="badge-step">PASO 01</span>
+
+      <div class="description">
+        <p>Con las flechas de navegación nos vamos al apartado que dice Hora.</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="hora1.jpeg" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.1: Opciones del dispositivo - Hora </figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 7</span>
+    </footer>
+  </section>
+
+  <!-- Página 8: Continuación -->
+
+     <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <!-- <h1 class="title-section">Cambiar fecha y hora de forma manual:</h1> -->
+        <span class="badge-step">PASO 02</span>
+
+      <div class="description">
+        <p>Una vez dentro de la opción Hora, veremos el apartado de Fecha y el apartado de Hora.</p>
+        <p>Para modificar alguno de los valores solo alternamos entre las opciones con las flechas y con el botón ok seleccionamos la que queremos modificar. Una vez modificado el valor volvemos a presionar ok para confirmar los cambios.</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="hora-opciones.jpeg" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.2: Opciones del dispositivo - Hora - Hora</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 8</span>
+    </footer>
+  </section>
+
+  <!-- Página 9: Información del Dispositivo -->
+    <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <h1 class="title-section">Visualizar información técnica del dispositivo:</h1>
+        <span class="badge-step">PASO 01</span>
+
+      <div class="description">
+        <p>Navegamos hasta la opción con el nombre de Info.</p>
+        
+      </div>
+
+      <figure class="image-container">
+        <img src="info1.jpeg" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.1: Opciones del dispositivo - Info</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 9</span>
+    </footer>
+  </section>
+
+  <!-- Pagina 10: Continuación-->
+   <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <!-- <h1 class="title-section">Visualizar información técnica del dispositivo:</h1> -->
+        <span class="badge-step">PASO 02</span>
+
+      <div class="description">
+        <p>Una vez dentro de la opción Info, veremos 2 pestañas. Una para Capacidad y otra para información del Dispositivo.</p>
+        <p>En el apartado de Capacidad veremos en forma de gráfico de barras la cantidad de Usuarios, la cantidad de Huellas y de Tarjetas que tiene registrados el equipo así como su límite.</p>   
+      </div>
+
+      <figure class="image-container">
+        <img src="info-capacidad.jpeg" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.2: Opciones del dispositivo - Info - Capacidad</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 10</span>
+    </footer>
+  </section>
+
+  <!-- Pagina 11: Continuación -->
+   <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <!-- <h1 class="title-section">Visualizar información técnica del dispositivo:</h1> -->
+        <span class="badge-step">PASO 03</span>
+
+      <div class="description">
+        <p>Para movernos hacia el apartado de Dispositivos utilizamos las flechas de navegación.</p>
+        <p>En esta vista apreciaremos datos técnicos del biométrico, como su modelo, MAC, serial, version de firmware y la fecha de fabricación.</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="info-dispositivo.jpeg" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.3: Opciones del dispositivo - Info - Dispositivo</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 11</span>
+    </footer>
+  </section>
+
+
+</body>
+</html>
