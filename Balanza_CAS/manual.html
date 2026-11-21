@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Plantilla base manual</title>
+    <style>
+        :root {
+            --primary-color:#0b6b23;
+            --accent-color: #f27c1e;
+            --light-green-color: #7cc21c;
+            --magenta-color: #d93b88;
+            --azul-color: #189ad3;
+                
+            --text-color: #1f2937;
+            --secondary-color: #6b7280;
+            --border-color: #e5e7eb;
+            --background-color: #f8fafc;
+
+            --logo: url('logo_rio.jpg');
+            --font: 'Poppins', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #d1d5db;
+            font-family: var(--font);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        @page {
+            size: letter;
+            margin: 0;
+        }
+
+        .sheet {
+            width: 215.9mm;
+            height: 279.4mm;
+            background: #ffffff;
+            margin: 20px auto;
+            padding: 18mm 22mm 20mm 22mm;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            page-break-after: always;
+            break-after: page;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sheet::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: var(--logo);
+            background-repeat: no-repeat;
+            background-position: center 58%;
+            background-size: 135mm auto;
+            opacity: 0.055; /* Muy sutil para no competir con el contenido */
+            filter: grayscale(20%);
+            /* Degradado suave que desvanece los bordes de la marca de agua */
+            -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 38%, rgba(0, 0, 0, 0.25) 72%, rgba(0, 0, 0, 0) 95%);
+            mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 38%, rgba(0, 0, 0, 0.25) 72%, rgba(0, 0, 0, 0) 95%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .sheet-heading, .main-content, .sheet-footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        .sheet-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 24px;
+            font-size: 12px;
+            color: var(--secondary-color);
+            letter-spacing: 0.5px;
+        }
+
+        .heading-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--primary-color)
+        }
+
+        .heading-logo {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid var(--primary-color)
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .badge-step {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            width: fit-content;
+        }
+
+        .title-section {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 14px;
+            line-height: 1.25;
+        }
+
+        .description {
+            margin-bottom: 10px;
+        }
+
+        .description p {
+            margin-bottom: 10px;
+        }
+
+        .image-container {
+            flex-grow: 1;
+            max-height: 142mm;
+            background-color: rgba(248, 250, 249, 0.9);
+            border: 1px solid var(--color-borde);
+            border-radius: 8px;
+            padding: 12px;    
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            height: 100%;             
+            width: auto;                
+            max-width: 100%;            
+            object-fit: contain;        
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .image-footer {
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--secondary-color);
+            font-style: italic; 
+            text-align: center;
+        }
+
+        .sheet-footer {
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--secondary-color);
+        }
+
+        /* Portada */
+
+        .sheet.cover {
+            background: linear-gradient(160deg, #fff 55%, #f2f8f4 100%);
+            justify-content: space-between;
+            padding: 22mm 24mm;
+        }
+
+        .cover-topbar {
+            display: flex;
+            height: 6px;
+            width: 100%;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 18px;
+        }
+
+        .cover-topbar span:nth-child(1) { flex: 3; background-color: var(--primary-color); }
+        .cover-topbar span:nth-child(2) { flex: 1; background-color: var(--light-green-color); }
+        .cover-topbar span:nth-child(3) { flex: 1; background-color: var(--accent-color); }
+        .cover-topbar span:nth-child(4) { flex: 1; background-color: var(--magenta-color); }
+        .cover-topbar span:nth-child(5) { flex: 1; background-color: var(--azul-color); }
+
+    .body-cover {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 22px;
+    }
+
+    .cover-logo-box {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .cover-logo {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary-color);
+      box-shadow: 0 6px 16px rgba(11, 107, 35, 0.15);
+    }
+
+    .cover-label-text {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--color-primario);
+    }
+
+    .cover-sublabel {
+      font-size: 13px;
+      color: var(--secondary-color);
+    }
+
+    .cover-badge {
+      display: inline-block;
+      width: fit-content;
+      background-color: rgba(242, 124, 30, 0.12);
+      color: var(--accent-color);
+      border-left: 4px solid var(--accent-color);
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .cover-title {
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--primary-color);
+      line-height: 1.15;
+      max-width: 95%;
+      text-align: center;
+      margin-bottom: 40px;
+
+    }
+
+    .cover-subtitle {
+      font-size: 16px;
+      color: var(--secondary-color);
+      line-height: 1.55;
+      max-width: 88%;
+      text-align: center;
+    }
+
+    /* Tarjeta de metadatos (área, versión, fecha, responsable) */
+    .cover-card {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      background-color: #ffffff;
+      border: 2px solid var(--primary-color);
+      /* border-left: 4px solid var(--primary-color); */
+      border-radius: 8px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .card-item-label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--secondary-color);
+      margin-bottom: 3px;
+      text-align: center;
+    }
+
+    .card-item-value {
+        display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-color);
+      text-align: center;
+    }
+
+    .cover-footer {
+      border-top: 1px solid var(--border-color);
+      padding-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--secondary-color);
+    }
+
+
+        @media print {
+            body {
+                background: none;
+            }
+
+            .sheet {
+                margin: 0;
+                box-shadow: none;
+                width: 100%;
+                height: 100vh;
+            }
+        }
+    </style>
+</head>
+<body>
+
+     <!-- Portada -->
+     <section class="sheet cover">
+    <div>
+      <!-- Barra superior con los tonos de la marca -->
+      <div class="cover-topbar" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="cover-logo-box">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="cover-logo">
+        <div>
+          <div class="cover-label-text">Rio supermarket</div>
+          <div class="cover-sublabel">Manual Técnico</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-body">
+      <!-- <span class="cover-badge">Guía Paso a Paso</span> -->
+      <h1 class="cover-title">Manual de Configuración Inicial para balanza Balanza CAS CL3000P</h1>
+      <!-- <p class="cover-subtitle">
+        Procedimientos estándar, uso de equipos y buenas prácticas para ejecutar el proceso de forma segura y uniforme.
+      </p> -->
+
+      <div class="cover-card">
+        <div>
+          <span class="card-item-label">Área / Departamento:</span>
+          <span class="card-item-value">Soporte Técnico</span>
+        </div>
+        <!-- <div>
+          <span class="card-item-label">Código de Documento</span>
+          <span class="card-item-value">MAN-RIO-001</span>
+        </div> -->
+        <div>
+          <span class="card-item-label">Versión y Fecha:</span>
+          <span class="card-item-value">v1.0 · 20/11/2026</span>
+        </div>
+        <div>
+          <span class="card-item-label">Elaborado por:</span>
+          <span class="card-item-value">Oswaldo Rodríguez / Analista de soporte técnico</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="cover-footer">
+      <span>Documento de Uso Interno</span>
+      <span>Todos los derechos reservados</span>
+    </footer>
+  </section>
+
+  <!-- Página 1: Activación DHCP -->
+   <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <h1 class="title-section">Activar DHCP:</h1>
+        <span class="badge-step">PASO 01</span>
+
+      <div class="description">
+        <p>En el teclado físico númerico vamos a marcar el código <strong>1912</strong> y luego vamos a pulsar la tecla <strong>menu</strong>.</p>
+        <p>Una vez hecho eso, nos va a pedir una password la cual es <strong>000419</strong> y luego le damos <em>PRINT / YAZDIR</em></p>
+      </div>
+
+      <figure class="image-container">
+        <img src="./assets/password.jpeg" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.1: Campo de password</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 1</span>
+    </footer>
+  </section>
+
+  <!-- Página 2: Continuación -->
+    <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <!-- <h1 class="title-section">Activar DHCP:</h1> -->
+        <span class="badge-step">PASO 02</span>
+
+      <div class="description">
+      <p>En este punto teniendo el cable de red ya conectado a la balanza, pulsamos la tecla <strong>1</strong> (YES) para activar y guardamos pulsando <em>PRINT / YAZDIR</em>.</p>
+      <p>Luego de eso la balanza deberia reiniciarse automaticamente, en caso contrario, podemos reiniciar manualmente apagando y prendiendo el equipo en el switch en la parte inferior izquierda.</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="./assets/dhcp.jpeg" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.2: Menú - DHCP</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 2</span>
+    </footer>
+  </section>
+
+  <!-- Página 3: Visualización de IP -->
+    <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <h1 class="title-section">Visualización de IP:</h1>
+        <span class="badge-step">PASO 01</span>
+
+      <div class="description">
+      <p>
+        Para visualizar la ip, pulsamos el código <strong>1913</strong> y luego <strong>menu</strong>. Posteriormente nos va a pedir la password, pulsamos <strong>000419</strong> y luego <em>PRINT / YAZDIR.</em>
+      </p>
+      <p>
+        Si el proceso de activación de dhcp se realizó correctamente veremos la ip que le fue asignada al equipo dependiendo del direccionamiento de la tienda. En caso contrario debemos proceder a realizar el proceso de activación de dhcp nuevamente.
+      </p>
+      </div>
+
+      <figure class="image-container">
+        <img src="./assets/ip.jpeg" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.1: Menú - IP</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 3</span>
+    </footer>
+  </section>
+
+  <!-- Página 4: Configuración Código de barras -->
+    <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <h1 class="title-section">Configuración de código de barras:</h1>
+        <span class="badge-step">PASO 01</span>
+
+      <div class="description">
+        <p>Tecleamos el código <strong>1261</strong> seguido de la tecla <strong>menu</strong>. Pulsamos <strong>1</strong>, luego nuevamente <strong>1</strong> para seleccionar que queremos editar la etiqueta 1(global por defecto) y luego <em>PRINT / YAZDIR.</em></p>
+        <p>Luego en la descripción escribimos un nombre de referencia para la etiqueta    (puede ser RIO), acto seguido pulsamos <em>PRINT / YAZDIR para avanzar en el proceso.</em> </p>
+      </div>
+
+      <figure class="image-container">
+        <img src="./assets/label_format.JPG" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.1: Menú - Código de barras</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 4</span>
+    </footer>
+  </section>
+
+  <!-- Página 5: Continuación -->
+    <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <!-- <h1 class="title-section">Configuración de código de barras:</h1> -->
+        <span class="badge-step">PASO 02</span>
+
+      <div class="description">
+       <p>Por defecto el tipo de código de barra viene en <strong>EAN-13</strong>(13 dígitos), lo dejamos como esta pulsando <em>PRINT / YAZDIR.</em></p>
+       <p>Posteriormente veremos el apartado de <strong>User settings</strong>, aquí simplemente presionamos <em>PRINT / YAZDIR</em> sin modificar nada y avanzamos.</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="./assets/ean.JPG" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.2: Menú - Tipo Código de barras</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 5</span>
+    </footer>
+  </section>
+  
+     <!-- Página 6: Continuación -->
+    <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <!-- <h1 class="title-section">Configuración de código de barras:</h1> -->
+        <span class="badge-step">PASO 03</span>
+
+      <div class="description">
+       <p>En este punto, haciendo uso de las flechas de navegación(ver imagen del teclado en la página de referencias), vamos a editar el codigo que aparece en pantalla <strong>GGIIIIIPPPPPP</strong> y lo vamos a cambiar por <strong>2IIIIIIWWWWWC</strong>.</p>
+       <p>Dicho código hace referencia a los 13 dígitos(EAN-13) que aparecen en una etiqueta. Donde, las 6 primeras I representan el código del item(en este caso el PLU del producto) y las 5 W representan el peso del producto.</p>
+       <p>Una vez modificado presionamos <em>PRINT / YAZDIR</em>, y posteriormente presionamos la <strong>X</strong> en el teclado repetidas veces hasta quedar en la pantalla principal.</p>
+       
+      </div>
+
+      <figure class="image-container">
+        <img src="./assets/barcode-form.JPG" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.3: Menú - Forma Código de barras</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 6</span>
+    </footer>
+  </section>
+</body>
+</html>
