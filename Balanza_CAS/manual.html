@@ -128,6 +128,10 @@
             width: fit-content;
         }
 
+        .p-desc {
+         margin-bottom: 16px;
+        }
+
         .title-section {
             font-size: 26px;
             font-weight: 700;
@@ -318,6 +322,71 @@
       color: var(--secondary-color);
     }
 
+    /* REFERENCIAS */
+    .image-doble-grid {
+      flex-grow: 1;
+      max-height: 142mm;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .card-reference {
+      background-color: rgba(248, 250, 249, 0.92);
+      border: 1px solid var(--border-color);
+      /* border-top: 3px solid var(--primary-color); */
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .card-reference:last-child {
+      /* border-top-color: var(--accent-color); */
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--primary-color);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .card-reference:last-child .card-title {
+      color: var(--accent-color);
+    }
+
+    .frame-doble-image {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    .frame-doble-image img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 5px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08)
+    }
+
+    .disclaimer {
+      background-color: #153e1fdd;
+      border-radius: 4px;
+      padding: 14px;
+      color: var(--border-color)
+    }
+
 
         @media print {
             body {
@@ -370,7 +439,7 @@
         </div> -->
         <div>
           <span class="card-item-label">Versión y Fecha:</span>
-          <span class="card-item-value">v1.0 · 20/11/2026</span>
+          <span class="card-item-value">v1.0 · 21/11/2026</span>
         </div>
         <div>
           <span class="card-item-label">Elaborado por:</span>
@@ -382,6 +451,55 @@
     <footer class="cover-footer">
       <span>Documento de Uso Interno</span>
       <span>Todos los derechos reservados</span>
+    </footer>
+  </section>
+
+  <!-- Referencias -->
+   <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual de Procedimientos · Rio</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+      <!-- <span class="badge-step">REFERENCIA</span> -->
+      <h1 class="title-section">Vista general de la balanza y su keyboard</h1>
+
+      <div class="description">
+        <p>Aquí se muestran imagenes referenciales del modelo de la balanza y del teclado de la misma para poder saber ubicarse y llevar a cabo los pasos que siguen mas adelante.</p>
+        <p class="disclaimer">
+          <em>A destacar, para poder eliminar un valor erróneo que se haya colocado podemos hacerlo con la tecla con la flecha hacia  la izquierda <strong>⬅</strong> que se encuentra en el lado izquierdo del teclado.</em>
+          <br>
+          <em>Para regresar un paso solo basta darle la <strong>X</strong> que se encuentra en el lado derecho del teclado.</em>
+        </p>
+      </div>
+
+      <div class="image-doble-grid">
+        <!-- Columna 1: Imagen referencial de la balanza -->
+        <figure class="card-reference">
+          <div class="card-title">Balanza</div>
+          <div class="frame-doble-image">
+            <img src="./assets/balanza.jpeg" alt="Imagen referencial de la balanza">
+          </div>
+          <figcaption class="image-footer">Figura 1: Vista referencial de la balanza.</figcaption>
+        </figure>
+
+        <!-- Columna 2: Imagen referencial del keyboard -->
+        <figure class="card-reference">
+          <div class="card-title">Keyboard</div>
+          <div class="frame-doble-image">
+            <img src="./assets/keyboard.JPG" alt="Imagen referencial del keyboard de la balanza">
+          </div>
+          <figcaption class="image-footer">Figura 2: Distribución de teclas del keyboard.</figcaption>
+        </figure>
+      </div>
+    </main>
+
+    <footer class="sheet-footer">
+      
     </footer>
   </section>
 
@@ -397,6 +515,7 @@
 
     <main class="main-content">
         <h1 class="title-section">Activar DHCP:</h1>
+        <p class="p-desc">En esta parte activaremos el prótocolo DHCP (<em>Asignación de IP dínamica</em>) para que la balanza pueda recibir mediante conexión por cable de red una dirección IP para poder conectarse al sistema centralizado IBalance.</p>
         <span class="badge-step">PASO 01</span>
 
       <div class="description">
@@ -457,6 +576,7 @@
 
     <main class="main-content">
         <h1 class="title-section">Visualización de IP:</h1>
+        <p class="p-desc">En esta parte documentaremos la dirección IP asignada derivada del paso anterior para poder posteriormente agregarla al sistema centralizado IBalance.</p>
         <span class="badge-step">PASO 01</span>
 
       <div class="description">
@@ -491,6 +611,7 @@
 
     <main class="main-content">
         <h1 class="title-section">Configuración de código de barras:</h1>
+         <p class="p-desc">En esta sección configuraremos el tipo y formato del código de barras de las etiquetas.</p>
         <span class="badge-step">PASO 01</span>
 
       <div class="description">
@@ -568,6 +689,129 @@
 
     <footer class="sheet-footer">
       <span>Página 6</span>
+    </footer>
+  </section>
+
+  <!-- Página 7: Configuración Etiqueta Global -->
+    <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <h1 class="title-section">Configuración de Etiqueta Global:</h1>
+        <p class="p-desc">Este menú es usado para seleccionar una etiqueta global para todos los PLU's.</p>
+        <span class="badge-step">PASO 01</span>
+
+      <div class="description">
+        <p>Digitamos el código <strong>1510</strong> seguido de la tecla <strong>menu</strong>, seguidamente pulsamos <strong>1</strong> para modificar y luego pulsamos <em>PRINT / YAZDIR.</em></p>
+      </div>
+
+      <figure class="image-container">
+        <img src="./assets/global_label2.JPG" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.1: Menú - Configuración Etiqueta Global</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 7</span>
+    </footer>
+  </section>
+
+  <!-- Página 8: Continuación -->
+    <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <!-- <h1 class="title-section">Configuración de Etiqueta Global:</h1> -->
+        <p class="p-desc">En estos pasos vamos a seleccionar el número de etiqueta para los PLU's y para los miscelanéos.</p>
+        <span class="badge-step">PASO 02</span>
+
+      <div class="description">
+        <p>Por lo general, la etiqueta es la 52. Entonces, el número 10 lo cambiamos por 52 y pulsamos <em>PRINT / YAZDIR</em> para avanzar. Este proceso lo aplicamos para ambas pantallas.</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="./assets/label_plu.JPG" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.2: Menú - Configuración Etiqueta Global</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 8</span>
+    </footer>
+  </section>
+
+   <!-- Página 9: Continuación -->
+    <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <!-- <h1 class="title-section">Configuración de Etiqueta Global:</h1> -->
+        <p class="p-desc">Aquí vamos a modificar el formato de etiquetas del total de etiquetas y la dirección de impresión del total de etiquetas.</p>
+        <span class="badge-step">PASO 03</span>
+
+      <div class="description">
+        <p>Para el total de etiquetas cambiamos el número <strong>29</strong> y colocamos el <strong>52</strong> y pulsamos <em>PRINT / YAZDIR</em> para continuar a la siguiente pantalla.</p>
+        <p>Para la siguiente pantalla presionamos la tecla <strong>0</strong> para negar la modificación y pulsamos <em>PRINT / YAZDIR</em> para continuar a la siguiente pantalla.</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="./assets/label3.JPG" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.3: Menú - Configuración Etiqueta Global</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 9</span>
+    </footer>
+  </section>
+
+  <!-- Página 10: Continuación -->
+    <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <!-- <h1 class="title-section">Configuración de Etiqueta Global:</h1> -->
+        <p class="p-desc">Aquí vamos a modificar la dirección de impresión de los PLU's y los miscelanéos, la etiqueta global #2 y el nombre de la etiqueta.</p>
+        <span class="badge-step">PASO 04</span>
+
+      <div class="description">
+       <p>Para la primera pantalla presionamos la tecla <strong>0</strong> para descartar modificación y seguido pulsamos <em>PRINT / YAZDIR</em> para avanzar.</p>
+       <p>Para la segunda pantalla presionamos igualmente <strong>0</strong> para descartar modificación y luego pulsamos <em>PRINT / YAZDIR</em> y avanzamos.</p>
+       <p>La última pantalla que aparecera contiene el nombre de la etiqueta <strong>FORM1</strong>, solo le damos <em>PRINT / YAZDIR</em> y esta lista la configuración. Para salir de este menú pulsamos la <strong>X</strong> reiteradas veces hasta llegar a la pantalla principal.</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="./assets/label4.JPG" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.4: Menú - Configuración Etiqueta Global</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 10</span>
     </footer>
   </section>
 </body>
