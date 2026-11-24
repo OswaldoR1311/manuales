@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Plantilla base manual</title>
+    <style>
+        :root {
+            --primary-color:#0b6b23;
+            --accent-color: #f27c1e;
+            --light-green-color: #7cc21c;
+            --magenta-color: #d93b88;
+            --azul-color: #189ad3;
+                
+            --text-color: #1f2937;
+            --secondary-color: #6b7280;
+            --border-color: #e5e7eb;
+            --background-color: #f8fafc;
+
+            --logo: url('logo_rio.jpg');
+            --font: 'Poppins', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #d1d5db;
+            font-family: var(--font);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        @page {
+            size: letter;
+            margin: 0;
+        }
+
+        .sheet {
+            width: 215.9mm;
+            height: 279.4mm;
+            background: #ffffff;
+            margin: 20px auto;
+            padding: 18mm 22mm 20mm 22mm;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            page-break-after: always;
+            break-after: page;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sheet::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: var(--logo);
+            background-repeat: no-repeat;
+            background-position: center 58%;
+            background-size: 135mm auto;
+            opacity: 0.055; /* Muy sutil para no competir con el contenido */
+            filter: grayscale(20%);
+            /* Degradado suave que desvanece los bordes de la marca de agua */
+            -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 38%, rgba(0, 0, 0, 0.25) 72%, rgba(0, 0, 0, 0) 95%);
+            mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 38%, rgba(0, 0, 0, 0.25) 72%, rgba(0, 0, 0, 0) 95%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .sheet-heading, .main-content, .sheet-footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        .sheet-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 24px;
+            font-size: 12px;
+            color: var(--secondary-color);
+            letter-spacing: 0.5px;
+        }
+
+        .heading-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--primary-color)
+        }
+
+        .heading-logo {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid var(--primary-color)
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .badge-step {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            width: fit-content;
+        }
+
+        .p-desc {
+         margin-bottom: 16px;
+        }
+
+        .title-section {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 14px;
+            line-height: 1.25;
+        }
+
+        .title-section.center {
+            text-align: center;
+        }
+
+        .description {
+            margin-bottom: 10px;
+        }
+
+        .description p {
+            margin-bottom: 10px;
+        }
+
+        .image-container {
+            flex-grow: 1;
+            max-height: 142mm;
+            background-color: rgba(248, 250, 249, 0.9);
+            border: 1px solid var(--color-borde);
+            border-radius: 8px;
+            padding: 12px;    
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            height: 100%;             
+            width: auto;                
+            max-width: 100%;            
+            object-fit: contain;        
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .image-footer {
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--secondary-color);
+            font-style: italic; 
+            text-align: center;
+        }
+
+        .sheet-footer {
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--secondary-color);
+        }
+
+        /* Portada */
+
+        .sheet.cover {
+            background: linear-gradient(160deg, #fff 55%, #f2f8f4 100%);
+            justify-content: space-between;
+            padding: 22mm 24mm;
+        }
+
+        .cover-topbar {
+            display: flex;
+            height: 6px;
+            width: 100%;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 18px;
+        }
+
+        .cover-topbar span:nth-child(1) { flex: 3; background-color: var(--primary-color); }
+        .cover-topbar span:nth-child(2) { flex: 1; background-color: var(--light-green-color); }
+        .cover-topbar span:nth-child(3) { flex: 1; background-color: var(--accent-color); }
+        .cover-topbar span:nth-child(4) { flex: 1; background-color: var(--magenta-color); }
+        .cover-topbar span:nth-child(5) { flex: 1; background-color: var(--azul-color); }
+
+    .body-cover {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 22px;
+    }
+
+    .cover-logo-box {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .cover-logo {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary-color);
+      box-shadow: 0 6px 16px rgba(11, 107, 35, 0.15);
+    }
+
+    .cover-label-text {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--color-primario);
+    }
+
+    .cover-sublabel {
+      font-size: 13px;
+      color: var(--secondary-color);
+    }
+
+    .cover-badge {
+      display: inline-block;
+      width: fit-content;
+      background-color: rgba(242, 124, 30, 0.12);
+      color: var(--accent-color);
+      border-left: 4px solid var(--accent-color);
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .cover-title {
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--primary-color);
+      line-height: 1.15;
+      max-width: 95%;
+      text-align: center;
+      margin-bottom: 40px;
+
+    }
+
+    .cover-subtitle {
+      font-size: 16px;
+      color: var(--secondary-color);
+      line-height: 1.55;
+      max-width: 88%;
+      text-align: center;
+    }
+
+    /* Tarjeta de metadatos (área, versión, fecha, responsable) */
+    .cover-card {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      background-color: #ffffff;
+      border: 2px solid var(--primary-color);
+      /* border-left: 4px solid var(--primary-color); */
+      border-radius: 8px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .card-item-label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--secondary-color);
+      margin-bottom: 3px;
+      text-align: center;
+    }
+
+    .card-item-value {
+        display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-color);
+      text-align: center;
+    }
+
+    .cover-footer {
+      border-top: 1px solid var(--border-color);
+      padding-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--secondary-color);
+    }
+
+    /* REFERENCIAS */
+    .image-doble-grid {
+      flex-grow: 1;
+      max-height: 142mm;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .card-reference {
+      background-color: rgba(248, 250, 249, 0.92);
+      border: 1px solid var(--border-color);
+      /* border-top: 3px solid var(--primary-color); */
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .card-reference:last-child {
+      /* border-top-color: var(--accent-color); */
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--primary-color);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .card-reference:last-child .card-title {
+      color: var(--accent-color);
+    }
+
+    .frame-doble-image {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    .frame-doble-image img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 5px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08)
+    }
+
+    .disclaimer {
+      background-color: #153e1fdd;
+      border-radius: 4px;
+      padding: 14px;
+      color: var(--border-color)
+    }
+
+
+        @media print {
+            body {
+                background: none;
+            }
+
+            .sheet {
+                margin: 0;
+                box-shadow: none;
+                width: 100%;
+                height: 100vh;
+            }
+        }
+    </style>
+</head>
+<body>
+
+     <!-- Portada -->
+     <section class="sheet cover">
+    <div>
+      <!-- Barra superior con los tonos de la marca -->
+      <div class="cover-topbar" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="cover-logo-box">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="cover-logo">
+        <div>
+          <div class="cover-label-text">Rio supermarket</div>
+          <div class="cover-sublabel">Manual Técnico</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-body">
+      <!-- <span class="cover-badge">Guía Paso a Paso</span> -->
+      <h1 class="cover-title">Manual Técnico impresora fiscal HKA80</h1>
+      <!-- <p class="cover-subtitle">
+        Procedimientos estándar, uso de equipos y buenas prácticas para ejecutar el proceso de forma segura y uniforme.
+      </p> -->
+
+      <div class="cover-card">
+        <div>
+          <span class="card-item-label">Área / Departamento:</span>
+          <span class="card-item-value">Soporte Técnico</span>
+        </div>
+        <!-- <div>
+          <span class="card-item-label">Código de Documento</span>
+          <span class="card-item-value">MAN-RIO-001</span>
+        </div> -->
+        <div>
+          <span class="card-item-label">Versión y Fecha:</span>
+          <span class="card-item-value">v1.0 · 21/11/2026</span>
+        </div>
+        <div>
+          <span class="card-item-label">Elaborado por:</span>
+          <span class="card-item-value">Oswaldo Rodríguez / Analista de soporte técnico</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="cover-footer">
+      <span>Documento de Uso Interno</span>
+      <span>Todos los derechos reservados</span>
+    </footer>
+  </section>
+
+  <!-- Referencias -->
+   <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual de Procedimientos · Rio</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+      <!-- <span class="badge-step">REFERENCIA</span> -->
+      <h1 class="title-section center">Imágenes referenciales de la impresora HKA80</h1>
+
+      <div class="description">
+        <p>Aquí se muestran imagenes referenciales del dispositivo fiscal:</p>
+        <!-- <p class="disclaimer">
+          <em>A destacar, para poder eliminar un valor erróneo que se haya colocado podemos hacerlo con la tecla con la flecha hacia  la izquierda <strong>⬅</strong> que se encuentra en el lado izquierdo del teclado.</em>
+          <br>
+          <em>Para regresar un paso solo basta darle la <strong>X</strong> que se encuentra en el lado derecho del teclado.</em>
+        </p> -->
+      </div>
+
+      <div class="image-doble-grid">
+        <!-- Columna 1: Imagen referencial de la balanza -->
+        <figure class="card-reference">
+          <!-- <div class="card-title">Balanza</div> -->
+          <div class="frame-doble-image">
+            <img src="./assets/impresora_fiscal.JPG" alt="Imagen referencial de la impresora">
+          </div>
+          <figcaption class="image-footer">Figura 1: Vista referencial de la impresora.</figcaption>
+        </figure>
+
+        <!-- Columna 2: Imagen referencial del keyboard -->
+        <figure class="card-reference">
+          <!-- <div class="card-title">Keyboard</div> -->
+          <div class="frame-doble-image">
+            <img src="./assets/impresora_fiscal2.JPG" alt="Imagen referencial  de la impresora">
+          </div>
+          <figcaption class="image-footer">Figura 2: Vista referencial de la impresora. </figcaption>
+        </figure>
+      </div>
+    </main>
+
+    <footer class="sheet-footer">
+      
+    </footer>
+  </section>
+
+  <!-- Página 1: Deshabilitar adaptador de red -->
+   <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <h1 class="title-section">Deshabilitar adaptador de red:</h1>
+        <p class="p-desc">
+            En este punto vamos a deshabilitar el adaptador de red de la conexión ETHERNET para que cuando abramos el fiscalizador no nos pida actualización.
+        </p>
+        <span class="badge-step">PASO 01</span>
+
+      <div class="description">
+        <p>Nos vamos a panel de control - conexiones de red y deshabilitamos el adaptador de red, para ejecutar esta operación necesitaremos tener privilegios de administrador local.</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="./assets/Captura1.PNG" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.1: Panel de control - conexiones - adaptador de red</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 1</span>
+    </footer>
+  </section>
+
+  <!-- Página 2: Continuación -->
+   <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <!-- <h1 class="title-section">Abrir fiscalizador:</h1> -->
+        <p class="p-desc">
+            Una vez deshabilitado el adaptador de red, vamos a ubicar el puerto COM de la impresora fiscal en el Administrador de dispositivos. Tiene el nombre de Dispositivo serie USB(COM...), puede ser el puerto COM3 o el puerto COM4
+        </p>
+        <span class="badge-step">PASO 02</span>
+
+      <div class="description">
+        <p>Abrimos el Administrador de dispositivos de Windows, posteriormente nos vamos al apartado Puertos (COM y LPT) y le damos a la flecha hacia abajo para desplegar todos los puertos. Una vez identificado el puerto nos vamos al fiscalizador.</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="./assets/Captura2.PNG" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.2: Administrador de Dispositivos</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 2</span>
+    </footer>
+  </section>
+
+   <!-- Página 3: Abrir Fiscalizador -->
+   <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <h1 class="title-section">Abrir fiscalizador:</h1>
+        <p class="p-desc">
+           Una vez identificado el puerto abrimos el fiscalizador como administrador.
+        </p>
+        <span class="badge-step">PASO 01</span>
+
+      <div class="description">
+        <p>En el fiscalizador nos vamos a <strong>Configuracion</strong> en la parte superior izquierda y luego <strong>Conexión.</strong></p>
+        <p>Posteriormente aparecerá una ventana modal, en ella seleccionamos el puerto y le damos donde dice conectar, deberia salir un escudo verde indicando que la conexión fue exitosa.</p>
+        <p>Luego de conectar, cerramos la ventalla modal en la <strong>X</strong> de color rojo en la esquina superior derecha del modal.</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="./assets/Captura3.PNG" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.1: Fiscalizador</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 3</span>
+    </footer>
+  </section>
+  
+  <!-- Página 4: Reporte de memoria fiscal -->
+   <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <h1 class="title-section">Reporte de memoria fiscal:</h1>
+        <p class="p-desc">
+           En este punto sacaremos un reporte de memoria fiscal el cual nos sirve para visualizar cuanto porcentaje de impresion de <em>Z</em> queda disponible.
+        </p>
+        <span class="badge-step">PASO 01</span>
+
+      <div class="description">
+        <p>Nos vamos a la pestaña superior que dice <strong>Reportes y Status</strong>, nos va a llevar a la pantalla de la imagen(1.1: Fiscalizador - Reportes y Status).</p>
+        <p>Aquí veremos todos los reportes disponibles que se pueden sacar, en este caso pulsaremos el que dice <strong>S5</strong> y una vez que aparezca la información referente a la memoria en la subpantalla de al lado, presionamos el botón imprimir.Si todo salio bien, deberia salir el voucher con el reporte de la información que se esta viendo en pantalla.</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="./assets/Captura4.PNG" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.1: Fiscalizador - Reportes y Status</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 4</span>
+    </footer>
+  </section>
+
+  <!-- Página 4: Reporte de Auditoria de Facturas -->
+   <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <h1 class="title-section">Reporte de Auditoria de Facturas:</h1>
+        <p class="p-desc">
+           En este punto se saca auditoria de facturas, es decir, todas las facturas que tuvo una caja en una fecha o rango de fechas determinada.
+        </p>
+        <span class="badge-step">PASO 01</span>
+
+      <div class="description">
+        <p>Nos vamos a la pestaña superior que dice <strong>Auditoria</strong>, nos va a llevar a la pantalla de la imagen(1.1: Fiscalizador - Auditoria).</p>
+        <p>Aquí veremos todos los tipos de documentos disponibles, en este caso, dejaremos tildado <strong>Factura</strong>. Posteriormente en el apartado <strong>Por Fecha</strong> seleccionaremos la fecha o rango de fechas.</p>
+        <p>Usualmente siempre solicitan auditorias de un día en especifico, por lo tanto, en el campo <strong>Por Fecha</strong> vamos a colocar la misma fecha en <em>Desde</em> y <em>Hasta</em>, que quiere decir el día completo.</p>
+        <p>Una vez tengamos la fecha confirmada le damos al botón <strong>Extraer.</strong></p>
+      </div>
+
+      <figure class="image-container">
+        <img src="./assets/Captura5.PNG" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.1: Fiscalizador - Auditoria</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 5</span>
+    </footer>
+  </section>
+
+  <!-- Página 5: Continuación -->
+   <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <!-- <h1 class="title-section">Reporte de Auditoria de Facturas:</h1> -->
+        <!-- <p class="p-desc">
+           En este punto se saca auditoria de facturas, es decir, todas las facturas que tuvo una caja en una fecha o rango de fechas determinada.
+        </p> -->
+        <span class="badge-step">PASO 02</span>
+
+      <div class="description">
+       <p>Luego de haberle dado al boton extraer la impresora fiscal comienza a hacer su proceso, en la parte inferior central aparece una sucesión de puntos "........." indicando que esta haciendo su proceso.</p>
+       <p>Una vez terminado la barra de carga en la parte inferior derecha que dice <strong>HKA80</strong> se habrá llenado por completo y en el apartado que dice <strong>Documento</strong> que tiene la región acotada en azul apareceran todas las facturas.</p>
+       <p>Posteriormente se copia todo lo que aparece en el apartado <strong>Documento</strong> y se copia a un bloc de notas para ser entregado a quien lo solicitó.</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="./assets/Captura7.PNG" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.1: Fiscalizador - Auditoria</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 6</span>
+    </footer>
+  </section>
+
+   <!-- Página 6: Reporte de Programacion de Hora. -->
+   <section class="sheet">
+    <header class="sheet-heading">
+      <div class="heading-label">
+        <img src="./assets/logo_rio.jpg" alt="Logo Rio" class="heading-logo">
+        <span>Manual Técnico · Rio Supermarket</span>
+      </div>
+      <span>Soporte Técnico</span>
+    </header>
+
+    <main class="main-content">
+        <h1 class="title-section">Reporte de Programacion de Hora:</h1>
+        <p class="p-desc">
+          Este punto se programa la hora de la impresora fiscal que por lo general se suele adelantar a la hora del sistema.
+        </p>
+        <span class="badge-step">PASO 01</span>
+
+      <div class="description">
+       <p>Luego de haberle dado al boton extraer la impresora fiscal comienza a hacer su proceso, en la parte inferior central aparece una sucesión de puntos "........." indicando que esta haciendo su proceso.</p>
+       <p>Una vez terminado la barra de carga en la parte inferior derecha que dice <strong>HKA80</strong> se habrá llenado por completo y en el apartado que dice <strong>Documento</strong> que tiene la región acotada en azul apareceran todas las facturas.</p>
+       <p>Posteriormente se copia todo lo que aparece en el apartado <strong>Documento</strong> y se copia a un bloc de notas para ser entregado a quien lo solicitó.</p>
+      </div>
+
+      <figure class="image-container">
+        <img src="./assets/Captura6.PNG" alt="Captura del paso 1">
+        <figcaption class="image-footer">Figura 1.1: Fiscalizador - Reportes y Status</figcaption>
+      </figure>
+    </main>
+
+    <footer class="sheet-footer">
+      <span>Página 7</span>
+    </footer>
+  </section>
+</body>
+</html>
